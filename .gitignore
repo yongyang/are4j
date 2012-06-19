@@ -8,3 +8,6 @@
 # Special Added
 NOTE.txt
 note.txt
+*~
+pom.xml.releaseBackup
+release.properties
