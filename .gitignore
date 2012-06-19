@@ -4,3 +4,7 @@
 *.jar
 *.war
 *.ear
+
+# Special Added
+NOTE.txt
+note.txt
