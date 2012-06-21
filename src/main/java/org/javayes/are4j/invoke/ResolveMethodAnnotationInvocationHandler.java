@@ -6,12 +6,12 @@ package org.javayes.are4j.invoke;
 public class ResolveMethodAnnotationInvocationHandler implements InvocationHandler{
 
     public void chainInvoke(Invocation invocation) throws Exception {
-        Object[] resolvedParameters = invocation.getResolverUtils().resolveMethodAnnotationsBeforeMethod(invocation.getMethod(),invocation.getParameters());
+        Object[] resolvedParameters = invocation.getResolverUtils().resolveMethodAnnotationsBeforeMethod(invocation.getObject(), invocation.getOriginMethod(),invocation.getParameters());
         invocation.setParameters(resolvedParameters);
     }
 
     public void chainReturn(Invocation invocation) throws Exception {
-        invocation.getResolverUtils().resolveMethodAnnotationsAfterMethod(invocation.getMethod(), invocation.getParameters());
+        invocation.getResolverUtils().resolveMethodAnnotationsAfterMethod(invocation.getObject(), invocation.getOriginMethod(), invocation.getParameters());
     }
 
 }

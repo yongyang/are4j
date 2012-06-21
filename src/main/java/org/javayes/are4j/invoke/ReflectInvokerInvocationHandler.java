@@ -6,7 +6,7 @@ package org.javayes.are4j.invoke;
 public class ReflectInvokerInvocationHandler implements InvocationHandler{
 
     public void chainInvoke(Invocation invocation) throws Exception {
-        Object result = invocation.getMethod().invoke(invocation.getObject(), invocation.getParameters());
+        Object result = invocation.getProxyMethod().invoke(invocation.getObject(), invocation.getParameters());
         invocation.setResult(result);
     }
 

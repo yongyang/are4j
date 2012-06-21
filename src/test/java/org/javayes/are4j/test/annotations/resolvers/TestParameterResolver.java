@@ -19,7 +19,7 @@ public class TestParameterResolver implements ParameterAnnotationResolver {
     }
 
     public void resolveMethodParameterAnnotationBeforeMethod(MethodAnnotationResolver.MethodParameterResolveContext methodParameterResolveContext) throws ResolverException {
-        System.out.println(this.getClass().getName() + ", before Method " + methodParameterResolveContext.getMethod().getName());
+        System.out.println(this.getClass().getName() + ", before Method " + methodParameterResolveContext.getOriginMethod().getName());
         // change the value to "changed_field1_value"
         TestParameterAnnotation annotation = (TestParameterAnnotation)methodParameterResolveContext.getAnnotation();
         String newValue = annotation.changeValue();

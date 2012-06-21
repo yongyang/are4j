@@ -40,21 +40,25 @@ public interface MethodAnnotationResolver extends AnnotationResolver{
      */
     public class MethodResolveContext extends ResolveContext {
 
-        private Method method;
+        private Method originMethod;
         private Object[] parameters;
 
-        public MethodResolveContext(Class clazz, Object obj, Method method, Object[] parameters, Annotation annotation) {
+        public MethodResolveContext(Class clazz, Object obj, Method originMethod, Object[] parameters, Annotation annotation) {
             super(clazz, obj, annotation);
-            this.method = method;
+            this.originMethod = originMethod;
             this.parameters = parameters;
         }
 
-        public Method getMethod() {
-            return method;
+        public Method getOriginMethod() {
+            return originMethod;
         }
 
         public Object[] getParameters() {
             return parameters;
+        }
+
+        public void setParameters(Object[] parameters) {
+            this.parameters = parameters;
         }
     }
 
@@ -63,17 +67,17 @@ public interface MethodAnnotationResolver extends AnnotationResolver{
      */
     public class MethodParameterResolveContext extends ResolveContext {
 
-        private Method method;
+        private Method originMethod;
         private Object parameterObject;
 
-        public MethodParameterResolveContext(Class clazz, Method method, Object parameterObject, Annotation annotation) {
-            super(clazz, null, annotation);
-            this.method = method;
+        public MethodParameterResolveContext(Class clazz, Object proxy, Method originMethod, Object parameterObject, Annotation annotation) {
+            super(clazz, proxy, annotation);
+            this.originMethod = originMethod;
             this.parameterObject = parameterObject;
         }
 
-        public Method getMethod() {
-            return method;
+        public Method getOriginMethod() {
+            return originMethod;
         }
 
         public Object getParameterObject() {

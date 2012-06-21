@@ -7,12 +7,12 @@ public class ResolveMethodParameterAnnotationInvocationHandler implements Invoca
 
     public void chainInvoke(Invocation invocation) throws Exception {
         // resolveMethodAnnotationsBeforeMethod will resolve parameter annotations first
-        Object[] resolvedParameters = invocation.getResolverUtils().resolveMethodParameterAnnotationsBeforeMethod(invocation.getOriginMethod(),invocation.getParameters());
+        Object[] resolvedParameters = invocation.getResolverUtils().resolveMethodParameterAnnotationsBeforeMethod(invocation.getObject(), invocation.getOriginMethod(),invocation.getParameters());
         invocation.setParameters(resolvedParameters);
     }
 
     public void chainReturn(Invocation invocation) throws Exception {
-        invocation.getResolverUtils().resolveMethodAnnotationsAfterMethod(invocation.getMethod(), invocation.getParameters());
+        invocation.getResolverUtils().resolveMethodAnnotationsAfterMethod(invocation.getObject(), invocation.getProxyMethod(), invocation.getParameters());
     }
 
 }

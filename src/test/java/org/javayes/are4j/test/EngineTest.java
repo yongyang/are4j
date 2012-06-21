@@ -134,7 +134,7 @@ public class EngineTest {
         TestObject testObject = Engine.newProxyInstance(TestObject.class);
         //TODO:
         testObject.setField2_2("");
-        // TestFieldResolver will check the init value and set value to "value2"
+        // TestMethodResolver will check the init value and set value to "value2_change"
         Assert.assertEquals("value2_changed", testObject.getField2());
     }
 

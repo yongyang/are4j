@@ -30,7 +30,7 @@ public class Invocation {
     }
 
     private Object object;
-    private Method method;
+    private Method proxyMethod;
     // need originMethod to get method parameter annotations
     private Method originMethod;
     private Object[] parameters;
@@ -43,9 +43,9 @@ public class Invocation {
 
     private ResolverUtils resolverUtils;
 
-    public Invocation(Object object, Method method, Method originMethod, Object[] parameters, ResolverUtils resolverUtils) {
+    public Invocation(Object object, Method proxyMethod, Method originMethod, Object[] parameters, ResolverUtils resolverUtils) {
         this.object = object;
-        this.method = method;
+        this.proxyMethod = proxyMethod;
         this.originMethod = originMethod;
         this.parameters = parameters;
         this.resolverUtils = resolverUtils;
@@ -55,8 +55,8 @@ public class Invocation {
         return object;
     }
 
-    public Method getMethod() {
-        return method;
+    public Method getProxyMethod() {
+        return proxyMethod;
     }
 
     public Method getOriginMethod() {
@@ -108,11 +108,11 @@ public class Invocation {
     }
 
     public Annotation[] getMethodAnnotations() {
-        return getMethod().getDeclaredAnnotations();
+        return getProxyMethod().getDeclaredAnnotations();
     }
 
     public Annotation[][] getParameterAnnotations(){
-        return getMethod().getParameterAnnotations();
+        return getProxyMethod().getParameterAnnotations();
     }
 
     /**

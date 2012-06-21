@@ -255,26 +255,26 @@ public class ResolverUtils {
         return resolvedParameters;
     }
 
-    public Object[] resolveMethodAnnotationsBeforeMethod(Method method, Object[] parameters) throws ResolverException {
+    public Object[] resolveMethodAnnotationsBeforeMethod(Object proxy, Method method, Object[] parameters) throws ResolverException {
         Object[] resolvedParameters = parameters;
-        for(Annotation constructorAnnotation : method.getAnnotations()){
-            MethodAnnotationResolver.MethodResolveContext constructorResolveContext = new MethodAnnotationResolver.MethodResolveContext(clazz, null, method, resolvedParameters, constructorAnnotation);
-            AnnotationResolver annotationResolver = Engine.getAnnotationResolver(constructorAnnotation.annotationType());
+        for(Annotation methodAnnotation : method.getAnnotations()){
+            MethodAnnotationResolver.MethodResolveContext methodResolveContext = new MethodAnnotationResolver.MethodResolveContext(clazz, proxy, method, resolvedParameters, methodAnnotation);
+            AnnotationResolver annotationResolver = Engine.getAnnotationResolver(methodAnnotation.annotationType());
             if(annotationResolver == null) {
-                log.info("No resolver for " + constructorAnnotation + ", skip resolve.");
+                log.info("No resolver for " + methodAnnotation + ", skip resolve.");
             }
-            else if(!(annotationResolver instanceof ConstructorAnnotationResolver)){
-                log.warning("Resolver " + annotationResolver + " is not for Method annotation " + constructorAnnotation + ", skip resolve.");
+            else if(!(annotationResolver instanceof MethodAnnotationResolver)){
+                log.warning("Resolver " + annotationResolver + " is not for Method annotation " + methodAnnotation + ", skip resolve.");
             }
             else {
-                ((MethodAnnotationResolver)annotationResolver).resolveMethodAnnotationBeforeMethod(constructorResolveContext);
-                resolvedParameters = constructorResolveContext.getParameters();
+                ((MethodAnnotationResolver)annotationResolver).resolveMethodAnnotationBeforeMethod(methodResolveContext);
+                resolvedParameters = methodResolveContext.getParameters();
             }
         }
         return resolvedParameters;
     }
 
-    public Object[] resolveMethodParameterAnnotationsBeforeMethod(Method method, Object[] parameters) throws ResolverException {
+    public Object[] resolveMethodParameterAnnotationsBeforeMethod(Object proxy, Method method, Object[] parameters) throws ResolverException {
         //resolve parameter annotations for method
         Object[] resolvedParameters = new Object[parameters.length];
         Annotation[][] parameterAnnotations = method.getParameterAnnotations();
@@ -290,7 +290,7 @@ public class ResolverUtils {
                     log.warning("Resolver " + annotationResolver + " is not for method parameter annotation " + parameterAnnotation + ", skip resolve.");
                 }
                 else {
-                    MethodAnnotationResolver.MethodParameterResolveContext methodParameterResolveContext = new MethodAnnotationResolver.MethodParameterResolveContext(clazz, method,  parameters[i], parameterAnnotation);
+                    MethodAnnotationResolver.MethodParameterResolveContext methodParameterResolveContext = new MethodAnnotationResolver.MethodParameterResolveContext(clazz, proxy, method,  parameters[i], parameterAnnotation);
                     ((ParameterAnnotationResolver)annotationResolver).resolveMethodParameterAnnotationBeforeMethod(methodParameterResolveContext);
                     resolvedParameters[i] = methodParameterResolveContext.getParameterObject();
                 }
@@ -306,20 +306,20 @@ public class ResolverUtils {
      * @return result
      * @throws org.javayes.are4j.resolve.ResolverException
      */
-    public Object[] resolveMethodAnnotationsAfterMethod(Method method, Object[] parameters) throws ResolverException {
+    public Object[] resolveMethodAnnotationsAfterMethod(Object proxy, Method method, Object[] parameters) throws ResolverException {
         Object[] resolvedParameters = parameters;
-        for(Annotation constructorAnnotation : method.getAnnotations()){
-            MethodAnnotationResolver.MethodResolveContext constructorResolveContext = new MethodAnnotationResolver.MethodResolveContext(clazz, null, method, resolvedParameters, constructorAnnotation);
-            AnnotationResolver annotationResolver = Engine.getAnnotationResolver(constructorAnnotation.annotationType());
+        for(Annotation methodAnnotation : method.getAnnotations()){
+            MethodAnnotationResolver.MethodResolveContext methodResolveContext = new MethodAnnotationResolver.MethodResolveContext(clazz, proxy, method, resolvedParameters, methodAnnotation);
+            AnnotationResolver annotationResolver = Engine.getAnnotationResolver(methodAnnotation.annotationType());
             if(annotationResolver == null) {
-                log.info("No resolver for " + constructorAnnotation + ", skip resolve.");
+                log.info("No resolver for " + methodAnnotation + ", skip resolve.");
             }
-            else if(!(annotationResolver instanceof ConstructorAnnotationResolver)){
-                log.warning("Resolver " + annotationResolver + " is not for Constructor annotation " + constructorAnnotation + ", skip resolve.");
+            else if(!(annotationResolver instanceof MethodAnnotationResolver)){
+                log.warning("Resolver " + annotationResolver + " is not for Method annotation " + methodAnnotation + ", skip resolve.");
             }
             else {
-                ((MethodAnnotationResolver)annotationResolver).resolveMethodAnnotationBeforeMethod(constructorResolveContext);
-                resolvedParameters = constructorResolveContext.getParameters();
+                ((MethodAnnotationResolver)annotationResolver).resolveMethodAnnotationAfterMethod(methodResolveContext);
+                resolvedParameters = methodResolveContext.getParameters();
             }
         }
         return resolvedParameters;

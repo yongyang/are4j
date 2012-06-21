@@ -13,15 +13,19 @@ public class TestMethodResolver implements MethodAnnotationResolver {
     }
 
     public void resolveMethodAnnotationBeforeMethod(MethodResolveContext methodResolveContext) throws ResolverException {
-
+        methodResolveContext.setParameters(new String[]{"value2_changed"});
     }
 
     public void resolveMethodAnnotationAfterMethod(MethodResolveContext methodResolveContext) throws ResolverException {
+
+        //TODO: can't invoke method by reflection, cause dead loop
+/*
         try {
-            methodResolveContext.getMethod().invoke(methodResolveContext.getObject(), "value2_changed");
+            methodResolveContext.getOriginMethod().invoke(methodResolveContext.getObject(), "value2_changed");
         }
         catch (Exception e) {
             throw new ResolverException(e);
         }
+*/
     }
 }
