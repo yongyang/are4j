@@ -33,6 +33,9 @@
   <component name="GradleSettings">
     <option name="gradleHome" value="E:/Java/Gradle/gradle-1.0-rc-3" />
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_STRING" value="-target 1.5" />
+  </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" />
     <option name="OPTION_SCOPE" value="protected" />
@@ -184,7 +187,11 @@
   </component>
   <component name="ProjectCodeStyleSettingsManager">
     <option name="PER_PROJECT_SETTINGS">
-      <value />
+      <value>
+        <XML>
+          <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
+        </XML>
+      </value>
     </option>
   </component>
   <component name="ProjectModuleManager">
@@ -193,6 +200,8 @@
     </modules>
   </component>
   <component name="ProjectResources">
+    <resource url="http://maven.apache.org/DECORATION/1.3.0" location="" />
+    <resource url="http://maven.apache.org/xsd/decoration-1.3.0.xsd" location="" />
     <default-html-doctype>http://www.w3.org/1999/xhtml</default-html-doctype>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
